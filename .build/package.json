@@ -1,0 +1,41 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.1550.0",
+    "msnodesqlv8": "^4.1.2",
+    "mssql": "^10.0.2"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.5.2",
+    "@types/pg": "^8.10.1",
+    "@types/serverless": "^3.12.11",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-lambda-layer-packager": "^1.1.0",
+    "serverless-latest-layer-version": "^2.1.2",
+    "serverless-plugin-layer-manager": "^1.0.6",
+    "serverless-plugin-reducer": "^4.0.1",
+    "serverless-plugin-utils": "^0.2.0",
+    "ts-jest": "^29.1.0",
+    "tslint": "^6.1.2",
+    "typescript-tslint-plugin": "^1.0.2",
+    "@types/mssql": "^9.1.5",
+    "serverless": "^3.38.0",
+    "serverless-offline": "^13.3.3",
+    "serverless-plugin-typescript": "^2.1.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "ts",
+      "js"
+    ],
+    "preset": "ts-jest",
+    "testMatch": [
+      "**/**/*.test.ts"
+    ],
+    "testEnvironment": "node"
+  },
+  "scripts": {
+    "start": "sls offline"
+  }
+}

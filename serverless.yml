@@ -1,0 +1,18 @@
+service: aws-project-crud
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+
+functions:
+  getMessages:
+    handler: src/handler.post
+    events:
+      - httpApi:
+          path: /message
+          method: post
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
