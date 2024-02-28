@@ -19,7 +19,12 @@ class MessageServices {
         return __awaiter(this, void 0, void 0, function* () {
             var response = { succest: false, message: "", body: {} };
             try {
-                var messages = yield this._messageRepository.getMessage(request);
+                var requestDto = JSON.parse(request.toString());
+                if (requestDto.mes === null) {
+                    response.message = constantes_1.MESSAGE_VALIDATE_MONTH;
+                    return response;
+                }
+                var messages = yield this._messageRepository.getMessage(requestDto);
                 if (!messages.succest) {
                     response.message = messages.message;
                     response.body = messages.body;

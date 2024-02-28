@@ -10,8 +10,7 @@ export class MessageController {
     }
 
     async getMessage(request :IRequest){
-        var requestDto = JSON.parse(request.toString());
-        var response = this._messageServices.getMessage(requestDto);
+        var response = this._messageServices.getMessage(request);
         return response;
     }
 }

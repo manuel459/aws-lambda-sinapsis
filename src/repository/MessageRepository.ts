@@ -21,13 +21,13 @@ export class MessageRepository implements IMessageRepository{
                           FROM cliente c
                           JOIN usuario u ON c.idCliente = u.idCliente
                           JOIN campania c2 ON c2.idUsuario = u.idUsuario
-                          JOIN mensaje m ON m.fechaHoraEnvio = c2.fechaHoraProgramacion
+                          JOIN mensaje m ON m.idCampania = c2.idCampania
                           WHERE m.estado = 1
                             AND MONTH(m.fechaHoraEnvio) = ${request.mes}
                         `;
 
-          if(request.id != null){
-            sqlQuery += ` AND c.idCliente = ${request.id}`;
+          if(request.nombreCliente != null){
+            sqlQuery += ` AND c.nombre like '%${request.nombreCliente}%'`;
           }
           sqlQuery += ' GROUP BY m.estadoEnvio';
 

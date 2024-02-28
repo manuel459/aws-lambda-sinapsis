@@ -1,4 +1,4 @@
 export interface IRequest {
     mes: number;
-    id: number;
+    nombreCliente: string;
 }

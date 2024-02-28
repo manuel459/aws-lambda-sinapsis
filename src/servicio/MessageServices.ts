@@ -1,4 +1,4 @@
-import { MESSAGE_ERROR_EXCEPTION, MESSAGE_ERROR_SUCCEST } from "../common/constantes";
+import { MESSAGE_ERROR_EXCEPTION, MESSAGE_ERROR_SUCCEST, MESSAGE_VALIDATE_MONTH } from "../common/constantes";
 import { IMessageRepository } from "../interfaces/IMessageRepository";
 import { IMessageServices } from "../interfaces/IMessageServices";
 import { IRequest } from "../interfaces/IRequest";
@@ -16,7 +16,12 @@ export class MessageServices implements IMessageServices{
         var response : IResponse = { succest : false, message: "", body: {}};
 
         try {
-            var messages = await this._messageRepository.getMessage(request);
+            var requestDto = JSON.parse(request.toString());
+            if(requestDto.mes === null){
+                response.message = MESSAGE_VALIDATE_MONTH;
+                return response;
+            }
+            var messages = await this._messageRepository.getMessage(requestDto);
             if(!messages.succest){
                 response.message = messages.message;
                 response.body = messages.body;

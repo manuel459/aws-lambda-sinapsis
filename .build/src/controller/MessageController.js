@@ -16,8 +16,7 @@ class MessageController {
     }
     getMessage(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            var requestDto = JSON.parse(request.toString());
-            var response = this._messageServices.getMessage(requestDto);
+            var response = this._messageServices.getMessage(request);
             return response;
         });
     }
