@@ -93,5 +93,37 @@ class MessageRepository {
             return response;
         });
     }
+    getUsuarios() {
+        return __awaiter(this, void 0, void 0, function* () {
+            var response = { succest: false, message: "", body: {} };
+            //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
+            let sqlQuery = `
+                          SELECT u.idUsuario, u.usuario
+                          FROM  usuario u
+                        `;
+            try {
+                //EJECUTAR QUERY
+                const connectionString = yield this._connection.dbContext();
+                const result = yield new Promise((resolve, reject) => {
+                    msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        else {
+                            resolve(rows);
+                        }
+                    });
+                });
+                response.succest = true;
+                response.message = constantes_1.MESSAGE_SUCCEST_USUARIOS;
+                response.body = result;
+            }
+            catch (error) {
+                response.message = constantes_1.MESSAGE_ERROR_CONNECTION;
+                response.body = error;
+            }
+            return response;
+        });
+    }
 }
 exports.MessageRepository = MessageRepository;

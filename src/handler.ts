@@ -17,3 +17,7 @@ export const postCampania = async (request: any) => {
 
     return await new MessageController(service).insertCampania(request.body);
 };
+
+export const getUsuarios = async () => {
+    return await new MessageController(service).getUsuarios();
+};

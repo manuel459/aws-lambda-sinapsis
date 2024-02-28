@@ -18,6 +18,12 @@ functions:
       - httpApi:
           path: /campania
           method: post
+  getUsuarios:
+    handler: src/handler.getUsuarios
+    events:
+      - httpApi:
+          path: /usuarios
+          method: get
 
 plugins:
   - serverless-plugin-typescript

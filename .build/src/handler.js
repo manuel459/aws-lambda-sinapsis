@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postCampania = exports.post = void 0;
+exports.getUsuarios = exports.postCampania = exports.post = void 0;
 const MessageController_1 = require("./controller/MessageController");
 const connection_1 = require("./models/connection");
 const MessageRepository_1 = require("./repository/MessageRepository");
@@ -25,3 +25,7 @@ const postCampania = (request) => __awaiter(void 0, void 0, void 0, function* ()
     return yield new MessageController_1.MessageController(service).insertCampania(request.body);
 });
 exports.postCampania = postCampania;
+const getUsuarios = () => __awaiter(void 0, void 0, void 0, function* () {
+    return yield new MessageController_1.MessageController(service).getUsuarios();
+});
+exports.getUsuarios = getUsuarios;

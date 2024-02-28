@@ -1,6 +1,6 @@
 export interface IRequestInsert {
     nombre: string,
-    idUsuario: string,
+    idUsuario: number,
     fechaHoraProgramacion: Date,
     estado: number
 }

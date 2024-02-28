@@ -34,7 +34,7 @@ class MessageServices {
                     return response;
                 }
                 response.succest = true;
-                response.message = constantes_1.MESSAGE_ERROR_SUCCEST;
+                response.message = constantes_1.MESSAGE_SUCCEST_MESSAGE;
                 response.body = messages.body;
             }
             catch (error) {
@@ -61,6 +61,28 @@ class MessageServices {
             }
             catch (error) {
                 response.message = constantes_1.MESSAGE_ERROR_EXCEPTION_INSERT;
+                response.body = error;
+            }
+            return response;
+        });
+    }
+    getUsuarios() {
+        return __awaiter(this, void 0, void 0, function* () {
+            var response = { succest: false, message: "", body: {} };
+            try {
+                var messages = yield this._messageRepository.getUsuarios();
+                //VALIDAR RESPONSE DEL GET MESSAGE
+                if (!messages.succest) {
+                    response.message = messages.message;
+                    response.body = messages.body;
+                    return response;
+                }
+                response.succest = true;
+                response.message = constantes_1.MESSAGE_SUCCEST_USUARIOS;
+                response.body = messages.body;
+            }
+            catch (error) {
+                response.message = constantes_1.MESSAGE_ERROR_EXCEPTION;
                 response.body = error;
             }
             return response;

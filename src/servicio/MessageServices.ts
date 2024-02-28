@@ -1,4 +1,4 @@
-import { MESSAGE_ERROR_EXCEPTION, MESSAGE_ERROR_EXCEPTION_INSERT, MESSAGE_ERROR_SUCCEST, MESSAGE_SUCCEST_INSERT, MESSAGE_VALIDATE_MONTH } from "../common/constantes";
+import { MESSAGE_ERROR_EXCEPTION, MESSAGE_ERROR_EXCEPTION_INSERT, MESSAGE_SUCCEST_MESSAGE, MESSAGE_SUCCEST_INSERT, MESSAGE_VALIDATE_MONTH, MESSAGE_SUCCEST_USUARIOS } from "../common/constantes";
 import { IMessageRepository } from "../interfaces/IMessageRepository";
 import { IMessageServices } from "../interfaces/IMessageServices";
 import { IRequest } from "../interfaces/IRequest";
@@ -32,7 +32,7 @@ export class MessageServices implements IMessageServices{
                 return response;
             }
             response.succest = true;
-            response.message = MESSAGE_ERROR_SUCCEST;
+            response.message = MESSAGE_SUCCEST_MESSAGE;
             response.body = messages.body;
             
         } catch (error) {
@@ -62,6 +62,29 @@ export class MessageServices implements IMessageServices{
             response.message = MESSAGE_ERROR_EXCEPTION_INSERT;
             response.body = error;
         }
+        return response;
+    }
+
+    async getUsuarios() {
+        var response : IResponse = { succest : false, message: "", body: {}};
+
+        try {
+            var messages = await this._messageRepository.getUsuarios();
+            //VALIDAR RESPONSE DEL GET MESSAGE
+            if(!messages.succest){
+                response.message = messages.message;
+                response.body = messages.body;
+                return response;
+            }
+            response.succest = true;
+            response.message = MESSAGE_SUCCEST_USUARIOS;
+            response.body = messages.body;
+            
+        } catch (error) {
+            response.message = MESSAGE_ERROR_EXCEPTION;
+            response.body = error;
+        }
+
         return response;
     }
 }

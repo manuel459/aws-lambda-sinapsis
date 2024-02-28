@@ -11,12 +11,17 @@ export class MessageController {
     }
 
     async getMessage(request :IRequest){
-        var response = this._messageServices.getMessage(request);
+        var response = await this._messageServices.getMessage(request);
         return response;
     }
 
     async insertCampania(request :IRequestInsert){
-        var response = this._messageServices.insertCampania(request);
+        var response = await this._messageServices.insertCampania(request);
+        return response;
+    }
+
+    async getUsuarios(){
+        var response = await this._messageServices.getUsuarios();
         return response;
     }
 }

@@ -17,13 +17,19 @@ class MessageController {
     }
     getMessage(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            var response = this._messageServices.getMessage(request);
+            var response = yield this._messageServices.getMessage(request);
             return response;
         });
     }
     insertCampania(request) {
         return __awaiter(this, void 0, void 0, function* () {
-            var response = this._messageServices.insertCampania(request);
+            var response = yield this._messageServices.insertCampania(request);
+            return response;
+        });
+    }
+    getUsuarios() {
+        return __awaiter(this, void 0, void 0, function* () {
+            var response = yield this._messageServices.getUsuarios();
             return response;
         });
     }

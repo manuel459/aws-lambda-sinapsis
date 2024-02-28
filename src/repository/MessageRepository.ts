@@ -3,7 +3,7 @@ import { IMessageRepository } from "../interfaces/IMessageRepository";
 import { connection } from "../models/connection";
 import { IRequest } from '../interfaces/IRequest';
 import { IResponse } from "../interfaces/IResponse";
-import { MESSAGE_ERROR_CONNECTION, MESSAGE_SUCCEST_CONNECTION, MESSAGE_SUCCEST_INSERT } from "../common/constantes";
+import { MESSAGE_ERROR_CONNECTION, MESSAGE_SUCCEST_CONNECTION, MESSAGE_SUCCEST_INSERT, MESSAGE_SUCCEST_USUARIOS } from "../common/constantes";
 import { IRequestInsert } from "../interfaces/IRequestInsert";
 
 export class MessageRepository implements IMessageRepository{
@@ -79,6 +79,37 @@ export class MessageRepository implements IMessageRepository{
 
             response.succest = true;
             response.message = MESSAGE_SUCCEST_INSERT;
+            response.body = result;
+      
+        } catch (error) {
+            response.message = MESSAGE_ERROR_CONNECTION;
+            response.body = error;
+        }
+        return response;
+    }
+
+    async getUsuarios(){
+        var response : IResponse = { succest : false, message: "", body: {}};
+        //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
+        let sqlQuery = `
+                          SELECT u.idUsuario, u.usuario
+                          FROM  usuario u
+                        `;
+          try {
+            //EJECUTAR QUERY
+            const connectionString = await this._connection.dbContext();
+            const result = await new Promise((resolve, reject) => {
+                sql.query(connectionString, sqlQuery, (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            });
+
+            response.succest = true;
+            response.message = MESSAGE_SUCCEST_USUARIOS;
             response.body = result;
       
         } catch (error) {
