@@ -28,3 +28,24 @@ paths:
                     cantidad: 4
                   - estadoEnvio: 3
                     cantidad: 4
+  /campania:
+    post:
+      summary: Insertar nueva campaña
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              nombre: "Ambiente"
+              idUsuario: 1
+              fechaHoraProgramacion: "2022-01-01"
+              estado: 1
+      responses:
+        '200':
+          description: Campaña insertada con éxito
+          content:
+            application/json:
+              example:
+                success: true
+                message: "Campaña insertada con éxito"
+                body: []
