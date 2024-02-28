@@ -11,12 +11,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageController = void 0;
 class MessageController {
+    // APLICAR INYECCION DE DEPENDENCIA PARA LA CAPA DE SERVICIO
     constructor(messageServices) {
         this._messageServices = messageServices;
     }
     getMessage(request) {
         return __awaiter(this, void 0, void 0, function* () {
             var response = this._messageServices.getMessage(request);
+            return response;
+        });
+    }
+    insertCampania(request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var response = this._messageServices.insertCampania(request);
             return response;
         });
     }

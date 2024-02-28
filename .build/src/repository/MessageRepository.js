@@ -16,12 +16,14 @@ exports.MessageRepository = void 0;
 const msnodesqlv8_1 = __importDefault(require("msnodesqlv8"));
 const constantes_1 = require("../common/constantes");
 class MessageRepository {
+    // INYECTAR DEPENDENCIA
     constructor(connection) {
         this._connection = connection;
     }
     getMessage(request) {
         return __awaiter(this, void 0, void 0, function* () {
             var response = { succest: false, message: "", body: {} };
+            //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
             let sqlQuery = `
                           SELECT m.estadoEnvio, COUNT(*) as cantidad
                           FROM cliente c
@@ -36,6 +38,7 @@ class MessageRepository {
             }
             sqlQuery += ' GROUP BY m.estadoEnvio';
             try {
+                //EJECUTAR QUERY
                 const connectionString = yield this._connection.dbContext();
                 const result = yield new Promise((resolve, reject) => {
                     msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
@@ -49,6 +52,38 @@ class MessageRepository {
                 });
                 response.succest = true;
                 response.message = constantes_1.MESSAGE_SUCCEST_CONNECTION;
+                response.body = result;
+            }
+            catch (error) {
+                response.message = constantes_1.MESSAGE_ERROR_CONNECTION;
+                response.body = error;
+            }
+            return response;
+        });
+    }
+    insertCampania(request) {
+        return __awaiter(this, void 0, void 0, function* () {
+            var response = { succest: false, message: "", body: {} };
+            //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
+            let sqlQuery = `
+                        INSERT INTO campania (nombre, idUsuario, fechaHoraProgramacion, estado)
+                        VALUES ('${request.nombre}', ${request.idUsuario}, '${request.fechaHoraProgramacion}', ${request.estado})
+                        `;
+            try {
+                //EJECUTAR QUERY
+                const connectionString = yield this._connection.dbContext();
+                const result = yield new Promise((resolve, reject) => {
+                    msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
+                        if (err) {
+                            reject(err);
+                        }
+                        else {
+                            resolve(rows);
+                        }
+                    });
+                });
+                response.succest = true;
+                response.message = constantes_1.MESSAGE_SUCCEST_INSERT;
                 response.body = result;
             }
             catch (error) {

@@ -12,3 +12,8 @@ export const post = async (request: any) => {
 
     return await new MessageController(service).getMessage(request.body);
 };
+
+export const postCampania = async (request: any) => {
+
+    return await new MessageController(service).insertCampania(request.body);
+};

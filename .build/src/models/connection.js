@@ -14,6 +14,7 @@ const constantes_1 = require("../common/constantes");
 class connection {
     dbContext() {
         return __awaiter(this, void 0, void 0, function* () {
+            //DEFINIR CADENA DE CONEXION
             const connectionString = `server=${constantes_1.SERVER};Database=${constantes_1.DATABASE};Trusted_Connection=Yes;Driver={SQL Server Native Client 11.0}`;
             return connectionString;
         });

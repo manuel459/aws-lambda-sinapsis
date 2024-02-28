@@ -12,6 +12,12 @@ functions:
       - httpApi:
           path: /message
           method: post
+  insertCampania:
+    handler: src/handler.postCampania
+    events:
+      - httpApi:
+          path: /campania
+          method: post
 
 plugins:
   - serverless-plugin-typescript

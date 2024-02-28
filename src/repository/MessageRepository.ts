@@ -3,7 +3,8 @@ import { IMessageRepository } from "../interfaces/IMessageRepository";
 import { connection } from "../models/connection";
 import { IRequest } from '../interfaces/IRequest';
 import { IResponse } from "../interfaces/IResponse";
-import { MESSAGE_ERROR_CONNECTION, MESSAGE_SUCCEST_CONNECTION } from "../common/constantes";
+import { MESSAGE_ERROR_CONNECTION, MESSAGE_SUCCEST_CONNECTION, MESSAGE_SUCCEST_INSERT } from "../common/constantes";
+import { IRequestInsert } from "../interfaces/IRequestInsert";
 
 export class MessageRepository implements IMessageRepository{
     // INSTANCIAR CONEXION
@@ -46,6 +47,38 @@ export class MessageRepository implements IMessageRepository{
 
             response.succest = true;
             response.message = MESSAGE_SUCCEST_CONNECTION;
+            response.body = result;
+      
+        } catch (error) {
+            response.message = MESSAGE_ERROR_CONNECTION;
+            response.body = error;
+        }
+        return response;
+    }
+
+    async insertCampania(request: IRequestInsert){
+        var response : IResponse = { succest : false, message: "", body: {}};
+        //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
+        let sqlQuery = `
+                        INSERT INTO campania (nombre, idUsuario, fechaHoraProgramacion, estado)
+                        VALUES ('${request.nombre}', ${request.idUsuario}, '${request.fechaHoraProgramacion}', ${request.estado})
+                        `;
+
+          try {
+            //EJECUTAR QUERY
+            const connectionString = await this._connection.dbContext();
+            const result = await new Promise((resolve, reject) => {
+                sql.query(connectionString, sqlQuery, (err, rows) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(rows);
+                    }
+                });
+            });
+
+            response.succest = true;
+            response.message = MESSAGE_SUCCEST_INSERT;
             response.body = result;
       
         } catch (error) {
