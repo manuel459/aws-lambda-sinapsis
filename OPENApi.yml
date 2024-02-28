@@ -1,0 +1,30 @@
+openapi: 3.0.0
+info:
+  title: API de Consulta de Mensajes Activos
+  version: 1.0.0
+paths:
+  /message:
+    post:
+      summary: Obtener cantidad de mensajes activos
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              nombreCliente: null
+              mes: 2
+      responses:
+        '200':
+          description: Cantidad de mensajes activos listados con éxito
+          content:
+            application/json:
+              example:
+                success: true
+                message: "Cantidad de mensajes activos listados con éxito"
+                body:
+                  - estadoEnvio: 1
+                    cantidad: 2
+                  - estadoEnvio: 2
+                    cantidad: 4
+                  - estadoEnvio: 3
+                    cantidad: 4
