@@ -8,12 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.MessageRepository = void 0;
-const msnodesqlv8_1 = __importDefault(require("msnodesqlv8"));
 const constantes_1 = require("../common/constantes");
 class MessageRepository {
     // INYECTAR DEPENDENCIA
@@ -39,17 +35,8 @@ class MessageRepository {
             sqlQuery += ' GROUP BY m.estadoEnvio';
             try {
                 //EJECUTAR QUERY
-                const connectionString = yield this._connection.dbContext();
-                const result = yield new Promise((resolve, reject) => {
-                    msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
-                        if (err) {
-                            reject(err);
-                        }
-                        else {
-                            resolve(rows);
-                        }
-                    });
-                });
+                const connectionString = this._connection.dbContext();
+                const result = yield this._connection.executeSQL(connectionString, sqlQuery);
                 response.succest = true;
                 response.message = constantes_1.MESSAGE_SUCCEST_CONNECTION;
                 response.body = result;
@@ -72,16 +59,7 @@ class MessageRepository {
             try {
                 //EJECUTAR QUERY
                 const connectionString = yield this._connection.dbContext();
-                const result = yield new Promise((resolve, reject) => {
-                    msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
-                        if (err) {
-                            reject(err);
-                        }
-                        else {
-                            resolve(rows);
-                        }
-                    });
-                });
+                const result = yield this._connection.executeSQL(connectionString, sqlQuery);
                 response.succest = true;
                 response.message = constantes_1.MESSAGE_SUCCEST_INSERT;
                 response.body = result;
@@ -104,16 +82,7 @@ class MessageRepository {
             try {
                 //EJECUTAR QUERY
                 const connectionString = yield this._connection.dbContext();
-                const result = yield new Promise((resolve, reject) => {
-                    msnodesqlv8_1.default.query(connectionString, sqlQuery, (err, rows) => {
-                        if (err) {
-                            reject(err);
-                        }
-                        else {
-                            resolve(rows);
-                        }
-                    });
-                });
+                const result = yield this._connection.executeSQL(connectionString, sqlQuery);
                 response.succest = true;
                 response.message = constantes_1.MESSAGE_SUCCEST_USUARIOS;
                 response.body = result;

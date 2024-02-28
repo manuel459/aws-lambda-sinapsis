@@ -1,4 +1,4 @@
-import sql from "msnodesqlv8";
+//import sql from "msnodesqlv8";
 import { IMessageRepository } from "../interfaces/IMessageRepository";
 import { connection } from "../models/connection";
 import { IRequest } from '../interfaces/IRequest';
@@ -34,16 +34,8 @@ export class MessageRepository implements IMessageRepository{
 
           try {
             //EJECUTAR QUERY
-            const connectionString = await this._connection.dbContext();
-            const result = await new Promise((resolve, reject) => {
-                sql.query(connectionString, sqlQuery, (err, rows) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(rows);
-                    }
-                });
-            });
+            const connectionString = this._connection.dbContext();
+            const result = await this._connection.executeSQL(connectionString, sqlQuery);
 
             response.succest = true;
             response.message = MESSAGE_SUCCEST_CONNECTION;
@@ -66,16 +58,8 @@ export class MessageRepository implements IMessageRepository{
 
           try {
             //EJECUTAR QUERY
-            const connectionString = await this._connection.dbContext();
-            const result = await new Promise((resolve, reject) => {
-                sql.query(connectionString, sqlQuery, (err, rows) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(rows);
-                    }
-                });
-            });
+            const connectionString = this._connection.dbContext();
+            const result = await this._connection.executeSQL(connectionString, sqlQuery);
 
             response.succest = true;
             response.message = MESSAGE_SUCCEST_INSERT;
@@ -97,16 +81,8 @@ export class MessageRepository implements IMessageRepository{
                         `;
           try {
             //EJECUTAR QUERY
-            const connectionString = await this._connection.dbContext();
-            const result = await new Promise((resolve, reject) => {
-                sql.query(connectionString, sqlQuery, (err, rows) => {
-                    if (err) {
-                        reject(err);
-                    } else {
-                        resolve(rows);
-                    }
-                });
-            });
+            const connectionString = this._connection.dbContext();
+            const result = await this._connection.executeSQL(connectionString, sqlQuery);
 
             response.succest = true;
             response.message = MESSAGE_SUCCEST_USUARIOS;
@@ -118,4 +94,6 @@ export class MessageRepository implements IMessageRepository{
         }
         return response;
     }
+
+    
 }
