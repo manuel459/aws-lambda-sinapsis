@@ -6,16 +6,16 @@ import { IResponse } from "../interfaces/IResponse";
 import { MESSAGE_ERROR_CONNECTION, MESSAGE_SUCCEST_CONNECTION } from "../common/constantes";
 
 export class MessageRepository implements IMessageRepository{
-
+    // INSTANCIAR CONEXION
     _connection: connection
-
+    // INYECTAR DEPENDENCIA
     constructor(connection: connection){
         this._connection = connection
     }
 
     async getMessage(request :IRequest){
         var response : IResponse = { succest : false, message: "", body: {}};
-
+        //DEFINIR SENTENCIA EN BASE AL REQUERIMIENTO
         let sqlQuery = `
                           SELECT m.estadoEnvio, COUNT(*) as cantidad
                           FROM cliente c
@@ -32,6 +32,7 @@ export class MessageRepository implements IMessageRepository{
           sqlQuery += ' GROUP BY m.estadoEnvio';
 
           try {
+            //EJECUTAR QUERY
             const connectionString = await this._connection.dbContext();
             const result = await new Promise((resolve, reject) => {
                 sql.query(connectionString, sqlQuery, (err, rows) => {
